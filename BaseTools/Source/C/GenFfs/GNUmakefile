@@ -10,7 +10,8 @@ APPNAME = GenFfs
 
 OBJECTS = GenFfs.o
 
+LIBS = -lCommon
+
 include $(MAKEROOT)/Makefiles/app.makefile
 
-LIBS = -lCommon
 

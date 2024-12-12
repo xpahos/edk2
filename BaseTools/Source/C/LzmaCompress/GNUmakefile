@@ -22,6 +22,18 @@ OBJECTS = \
   $(SDK_C)/7zStream.o \
   $(SDK_C)/Bra86.o
 
+override NINJA_CSRCS := \
+  LzmaCompress.c \
+  $(SDK_C)/Alloc.c \
+  $(SDK_C)/LzFind.c \
+  $(SDK_C)/LzmaDec.c \
+  $(SDK_C)/LzmaEnc.c \
+  $(SDK_C)/7zFile.c \
+  $(SDK_C)/7zStream.c \
+  $(SDK_C)/Bra86.c
+
+override NINJA_CXXSRCS := 
+
 include $(MAKEROOT)/Makefiles/app.makefile
 
 CFLAGS += -D_7ZIP_ST

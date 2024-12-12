@@ -11,12 +11,26 @@ include $(MAKEROOT)/Makefiles/header.makefile
 
 APPLICATION = $(MAKEROOT)/bin/$(APPNAME)
 
-.PHONY:all
+NINJA_DEPS = 
+ifneq ($(LIBS),)
+  NINJA_DEPS +=  || 
+  NINJA_DEPS += $(foreach lib,$(LIBS),"$(MAKEROOT)/libs/lib$(subst -l,,$(lib)).a")
+endif
+
+.PHONY:all ninja
 all: $(MAKEROOT)/bin $(APPLICATION)
 
 $(APPLICATION): $(OBJECTS)
 	$(LINKER) -o $(APPLICATION) $(LDFLAGS) $(OBJECTS) -L$(MAKEROOT)/libs $(LIBS)
 
 $(OBJECTS): $(MAKEROOT)/Include/Common/BuildVersion.h
+
+ninja_app: ninja_build
+	@echo "" >> build.ninja
+	@echo "rule link_$(NINJA_ID)" >> build.ninja
+	@echo "  pool = link_pool" >> build.ninja
+	@echo "  command = $(LINKER) -o \044out $(LDFLAGS) \044in -L$(MAKEROOT)/libs $(LIBS)" >> build.ninja
+	@echo "" >> build.ninja
+	@echo "build $(APPLICATION): link_$(NINJA_ID) $(NINJA_OBJECTS)$(NINJA_DEPS)" >> build.ninja
 
 include $(MAKEROOT)/Makefiles/footer.makefile
