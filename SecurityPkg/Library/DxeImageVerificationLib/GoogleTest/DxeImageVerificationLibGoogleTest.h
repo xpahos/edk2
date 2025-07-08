@@ -8,6 +8,8 @@
 #ifndef DXE_IMAGE_VERIFICATION_LIB_GOOGLE_TEST_H
 #define DXE_IMAGE_VERIFICATION_LIB_GOOGLE_TEST_H
 
+#include "binfiles/UnsignedCOFF.h"
+
 /**
   Provide verification service for signed images, which include both signature validation
   and platform policy control. For signature types, both UEFI WIN_CERTIFICATE_UEFI_GUID and
